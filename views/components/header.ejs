@@ -1,0 +1,43 @@
+<div id="mainFrame">
+    <div id="mainHeader">
+        <header class="header dark upper">
+            <span class="header-title">Carvio</span>
+            <div class="header-nav-links">
+                <% if (user && user !=undefined) { %>
+                    <% if (active == 'dashboard') {%>
+                    <a href="/" class="btn ">Začetna stran</a>
+                    <% } else { %>
+                    <a href="/dashboard" class="btn ">Nadzorna plošča</a>
+                    <% } %>
+                    <a href="/logout" class="btn ">
+                        <%= user.firstname%>
+                            <%= user.lastname %> - Log out
+                    </a>
+                    <% } else { %>
+                        <a href="/login" class="btn ">Login</a>
+                        <% } %>
+
+            </div>
+            <% if (active !='setup' && active !='dashboard' && active != "moderator" ) { %>
+
+                <div class="sidenav-btn">
+                    <div class="sidenav-btn__burger"></div>
+                </div>
+                <% } %>
+        </header>
+        <% if (active !='setup' && active !='dashboard' && active != "moderator"  ) { %>
+            <header class="header dark lower">
+                <button href="" class="header-nav-link btn active" data-nav-container="#dealerships"
+                    onclick="getDelavnice()">Avto servisi</button>
+                <button href="" class="header-nav-link btn" data-nav-container="#services"
+                    onclick="getGroupedServices()">Storitve</button>
+                <button href="" class="header-nav-link btn" data-nav-container="#mechanics" onclick = "getMechanics()">Avto mehaniki</button>
+                <button href="" class="header-nav-link btn" data-nav-container="#advisery"
+                    onclick="getPosts()">Forum</button>
+            </header>
+    <script src="public/js/hamburger.js"></script>
+
+            <% } %>
+
+    </div>
+    <script src="public/js/mainNav.js"></script>

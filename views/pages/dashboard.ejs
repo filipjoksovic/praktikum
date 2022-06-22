@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../components/header.ejs') %>
+        <div id="dashboardContainer">
+            <div class="user-profile">
+                <div id="modalContainer"></div>
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="fname">Ime</label>
+                                <input type="text" id="um_fname" name="fname" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="lname">Priimek</label>
+                                <input type="text" id="um_lname" name="lname" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="phone">Telefonska številka</label>
+                                <input type="text" id="um_phone" name="phone" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="email">Email</label>
+                                <input type="email" id="um_email" name="email" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="street">Ulica</label>
+                                <input type="text" id="um_street" name="street" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="street_number">Hišna številka</label>
+                                <input type="text" id="um_street_number" name="street_number"
+                                    class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="city">Mesto</label>
+                                <input type="text" id="um_city" name="city" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="zipcode" class="fs-6">Poštna številka</label>
+                                <input type="text" id="um_zip_code" name="zipcode" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="country">Država</label>
+                                <input type="text" id="um_country" name="country" class="form-control small">
+                            </div>
+                        </div>
+                        <input type="hidden" id="um_user_id">
+                    </div>
+                </div>
+                <div class="user-actions d-flex w-100 justify-content-around mt-2">
+                    <button class="btn danger" id = deleteUser>Izbriši</button>
+                    <button class="btn success" id = "updateUser">Shrani</button>
+                </div>
+            </div>
+
+
+
+            <div class="modal modal-fullscreen" id="deleteModalRating" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content  blur">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Brisanje ocen</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="deleteUserModalContainer">
+
+                            </div>
+
+                            <h1 class="mt-5 text-center">Ocena bo izbrisana.</h1>
+                            <h2> Ali zelite nadaljevati?</h2>
+                            <input type="hidden" id="deleteRatingModalId">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary modal-close"
+                                data-bs-dismiss="modal">Zapri</button>
+                            <button type="button" class="btn btn-danger modal-save"
+                                onclick="deleteRating()">Nadaljuj</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal modal-fullscreen" id="deleteReservationModalDashboard" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content  blur">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Brisanje rezervacije</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="deleteUserModalContainer">
+
+                                <h1 class="mt-5 text-center">Rezervacija bo izbrisana.</h1>
+
+                                <h4> Ali zelite nadaljevati?</h4>
+
+                            </div>
+
+
+                            <input type="hidden" id="deleteRatingModalIdDashboard">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary modal-close"
+                                data-bs-dismiss="modal">Zapri</button>
+                            <button type="button" class="btn btn-danger modal-save"
+                                onclick="deleteReservation()">Nadaljuj</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="modal fade" id="reservationBookingModalDashboard" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content blur">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Spremeni rezervacijo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="reservationModalContainer"></div>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="reservation_date">Termin</label>
+                                            <input type="datetime-local" class="form-control"
+                                                id="reservation_date_dashboard">
+                                        </div>
+                                        <input type = "hidden" id="reservation_id_dashboard">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="updateReservation2()">Shrani spremembe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-container"></div>
+            <div class="nav-pills">
+                <button id = "reservationsPill" class="nav-pill active" onclick = "getReservations()">Rezervacije</button>
+                <button id = "reviewsPill" class="nav-pill" onclick = "getReviews()">Ocene</button>
+                <button id = "questionsPill" class="nav-pill" onclick = "getQuestions()">Vaša vprašanja</button>
+                <button id = "favoritesPill" class="nav-pill" onclick = "getFavorites()">Poljubni servisi</button>
+                <button id = "carsPill" class="nav-pill" onclick="getCarForm();getManufacturers();getUserId2()">Automobili</button>
+                <button id = "userCarsPill" class="nav-pill" onclick = "getUserCars()">Vaši avtomobili</button>
+            </div>
+        </div>
+        </div>
+
+        <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Oceni Uslugu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="reservationModalContainer"></div>
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="text">Iskušnje</label>
+                                        <textarea class="form-control" id="text" rows="5"></textarea>
+
+                                        <label for="rating">Ocena</label>
+                                        <input type="number" class="form-control" min="1" max="5" id="rating">
+                                    </div>
+                                    <input type="hidden" id="offeredServiceId">
+                                    <input type="hidden" id="ocenaKorisnik">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
+                        <button type="button" class="btn btn-primary" onclick="createRating()">Oceni</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="ratingUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Spreminjanje ocene</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="reservationModalContainer"></div>
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="text">Izkušnje</label>
+                                        <textarea class="form-control" id="textUpdate" rows="5"></textarea>
+
+                                        <label for="rating">Ocena</label>
+                                        <input type="number" class="form-control" min="1" max="5" id="ratingUpdate">
+                                    </div>
+                                    <input type="hidden" id="inputRatingId">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
+                        <button type="button" class="btn btn-primary" onclick="updateRating()">Shrani spremembe</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal " id="nekimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close-modal" data-bs-dismiss="modal" aria-label="Close"><i
+                                class='fa-solid fa-times'></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="questionModalErr">
+
+                        </div>
+                        <div class="advice-container">
+                            <div class="advice-header">
+                                <h3>Spremeni avto</h3>
+                            </div>
+                            <div class="modal-body question-modal">
+
+                                <div class="form-group">
+                                    <label for="">Proizvajalec</label>
+                                    <select name="manufacturers" id="manufacturerCar" onchange="onChangeId()"
+                                        class="form-control">
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Model</label>
+                                    <input type="text" class="form form-control" id="modelCar">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Leto proizvodnje</label>
+                                    <input type="number" min="1900" max="2099" step="1" class="form form-control"
+                                        id="yearCar">
+                                    <input type="hidden" class="form form-control" id="carid">
+                                </div>
+
+                                <div class="form-group" style="visibility: hidden">
+                                    <label for="">Uporabik</label>
+                                    <select name="manufacturers" id="userCar" class="form-control">
+                                    </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal"
+                    id="dealershipDataModalClose">Zapri</button>
+                <button type="button" class="btn btn-primary modal-save" id="carupdate">Spremeni</button>
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+        <script src="public/js/main.js"></script>
+        <script src="public/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+
+    <header class="header" id="adminHeader">
+        <span class="header-title"> Carvio </span>
+
+        <a href = "/logout" class="btn admin-header"> <%- user.firstname %>  <%- user.firstname %> - Logout </a>
+    </header>
+
+    <div id="app">
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="actions">
+
+                    <button class="action active" data-action-parent="#servicesContainer" onclick='loadServicesData()'>
+                        <div class="action-icon">
+                            <i class="fa-solid fa-car"></i>
+                        </div>
+                        <span class="action-text">Storitve</span>
+                    </button>
+                    <button class="action" data-action-parent="#ratingsContainer" onclick="loadRatingsData()">
+                        <div class="action-icon">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <span class="action-text">Ocene</span>
+                    </button>
+                    <button class="action" data-action-parent="#reservationsContainer" onclick="loadReservationsData()">
+                        <div class="action-icon">
+                            <i class="fa-solid fa-list-ol"></i>
+                        </div>
+                        <span class="action-text">Rezervacije</span>
+                    </button>
+
+                    <button class="action collapse">
+                        <div class="action-icon">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <span class="action-text">Zmanjšaj prikaz</span>
+                    </button>
+
+                </div>
+            </div>
+            <div class="content">
+                <div class="action-frame active">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- <script src='public/js/grid.js'></script> -->
+    <script src='public/js/dealership.js'></script>
+    <script>
+    $(".actions .action").click(function () {
+    let action = $(this).attr("data-action-parent");
+        console.log(action)
+        if(action == undefined){
+            $(".main-content").toggleClass("collapsed")
+            $(this).find("i").toggleClass("fa-arrow-left")
+            $(this).find("i").toggleClass("fa-arrow-right")
+
+            return;
+        }
+        $(".actions .action").removeClass("active")
+        $(this).addClass("active");
+        // $(".content .action-frame").removeClass("active");
+        // $(action).addClass("active");
+})
+
+    </script>
+</body>
+
+</html>

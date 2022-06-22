@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+
+    <header class="header" id="adminHeader">
+        <span class="header-title"> Carvio </span>
+
+        <a href = "/logout" class="btn admin-header"> <%- user.firstname %>  <%- user.firstname %> - Logout </a>
+    </header>
+
+    <div id="app">
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="actions">
+                    <button class="action active" data-action-parent="#usersContainer" onclick='getUsers()'>
+                        <div class="action-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span class="action-text">Uporabniki</span>
+                    </button>
+                    <button class="action" data-action-parent="#dealershipsContainer" onclick='getDealerships()'>
+                        <div class="action-icon">
+                            <i class="fa-solid fa-car"></i>
+                        </div>
+                        <span class="action-text">Delavnice</span>
+                    </button>
+                    <button class="action" data-action-parent="#reservationsContainer">
+                        <div class="action-icon">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <span class="action-text">Rezervacije</span>
+                    </button>
+
+                    <button class="action" data-action-parent="#forumContainer" onclick="getQuestions()">
+                        <div class="action-icon">
+                            <i class="fa-solid fa-comment"></i>
+                        </div>
+                        <span class="action-text">Forum</span>
+                    </button>
+                    <button class="action collapse">
+                        <div class="action-icon">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <span class="action-text">Zmanjšaj prikaz</span>
+                    </button>
+
+                </div>
+            </div>
+            <div class="content">
+                <!-- Users section -->
+                <div class="action-frame active" id="usersContainer">
+                    <div class="action-title">
+                        <h1>Prikaz uporabnika</h1>
+                        <div id="actionSearch">
+                            <button class="search-icon" data-bs-toggle="modal" data-bs-target="#userDataModal"
+                                onclick="emptyUserModal()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button class="search-icon filter">
+                                <i class="fa-solid fa-filter" onclick="toggleFilter(this,'user')"></i>
+                                <div class="filter-container">
+                                    <div class="content roles">
+
+                                    </div>
+                                </div>
+                            </button>
+                            <div class="search-icon" onclick="searchUsers()">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control dark" placeholder="Search" class="search"
+                                    onkeyup="search('users')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="users">
+
+
+                    </div>
+
+                </div>
+                <!-- End of users section -->
+
+                <!-- Dealerships container -->
+                <div class="action-frame" id="dealershipsContainer">
+                    <div class="action-title">
+                        <h1>Prikaz delavnica</h1>
+                        <div id="actionSearch">
+                            <button class="search-icon" data-bs-toggle="modal" data-bs-target="#dealershipDataModal"
+                                onclick="emptyDealershipModal()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <div class="search-icon filter" onclick="toggleFilter(this)">
+                                <i class="fa-solid fa-filter"></i>
+                                <div class="filter-container"></div>
+                            </div>
+                            <div class="search-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control dark" placeholder="Search" class="search"
+                                    onkeyup='search("dealerships")'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dealerships">
+
+                    </div>
+
+                </div>
+                <!-- End of dealerships container section -->
+
+                <!-- Reservations section -->
+                <div class="action-frame" id="reservationsContainer">
+                    <div class="action-title">
+                        <h1>Prikaz rezervacija</h1>
+
+                        <div id="actionSearch">
+
+
+                            <button class="search-icon" data-bs-toggle="modal" data-bs-target="#reservationsModal"
+                                onclick="loadUserOption();
+                                emptyReservationsModal();
+                                loadCarServiceOption();
+                                ">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+
+                            <div class="search-icon filter" onclick="toggleFilter(this)">
+                                <i class="fa-solid fa-filter"></i>
+                                <div class="filter-container"></div>
+                            </div>
+
+                            <div class="search-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control dark" placeholder="Search" class="search"
+                                    onkeyup='search("dealerships")'>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="reservations">
+
+
+                    </div>
+                </div>
+                <!-- End of reservations section -->
+                <!-- Forum section -->
+                <div class="action-frame" id="forumContainer">
+                    <div class="action-title">
+                        <h1>Prikaz vprašanj</h1>
+                        <div id="actionSearch">
+                            <div class="search-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search" id="searchUsers">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="forum">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal " id="userDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Uporabniški podatki</h5>
+                        <button type="button" class="close-modal" data-bs-dismiss="modal" aria-label="Close"><i
+                                class='fa-solid fa-times'></i></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="px-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="fname">Ime</label>
+                                        <input type="text" id="um_fname" name="fname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="lname">Priimek</label>
+                                        <input type="text" id="um_lname" name="lname" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Telefonska številka</label>
+                                        <input type="text" id="um_phone" name="phone" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="um_email" name="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="street">Ulica</label>
+                                        <input type="text" id="um_street" name="street" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="street_number">Hišna številka</label>
+                                        <input type="text" id="um_street_number" name="street_number"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="city">Mesto</label>
+                                        <input type="text" id="um_city" name="city" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="zipcode" class="fs-6">Poštna številka</label>
+                                        <input type="text" id="um_zip_code" name="zipcode" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="country">Država</label>
+                                        <input type="text" id="um_country" name="country" class="form-control">
+                                    </div>
+                                </div>
+                                <input type="hidden" id="um_user_id">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal"
+                            id="userDataModalClose">Zapri</button>
+                        <button type="button" id="saveUserModalBtn" class="btn btn-primary modal-save"
+                            onclick="createUser()">Shrani
+                            uporabnika</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal " id="dealershipDataModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Podatki o delavnici</h5>
+                        <button type="button" class="close-modal" data-bs-dismiss="modal" aria-label="Close"><i
+                                class='fa-solid fa-times'></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalContainer3">
+
+                        </div>
+                        <div class="px-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fname">Naziv</label>
+                                        <input type="text" id="dm_name" name="name" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Telefonska številka</label>
+                                        <input type="text" id="dm_phone" name="phone" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="dm_email" name="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="street">Ulica</label>
+                                        <input type="text" id="dm_street" name="street" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="street_number">Hišna številka</label>
+                                        <input type="text" id="dm_street_number" name="street_number"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="city">Grad</label>
+                                        <input type="text" id="dm_city" name="city" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="zipcode" class="fs-6">Poštna številka</label>
+                                        <input type="text" id="dm_zip_code" name="zipcode" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="country">Država</label>
+                                        <input type="text" id="dm_country" name="country" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="dm_max_capacity">Maksimalna kapaciteta</label>
+                                        <input type="number" id="dm_max_capacity" name="country" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="dm_is_licenced">Je licenciran</label>
+                                        <select id="dm_is_licenced" name="is_licenced" class="form-control">
+                                            <option value="1">Ja</option>
+                                            <option value="0">Ne</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="dm_id">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal"
+                            id="dealershipDataModalClose">Zapri</button>
+                        <button type="button" id="saveDealershipModalBtn" class="btn btn-primary modal-save"
+                            onclick="createDealership()">Shrani
+                            avto delavnicu</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal " id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Komentarji</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+
+                    <div class="modal-body">
+
+
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modal-close"
+                            data-bs-dismiss="modal">Zapri</button>
+                        <button type="button" class="btn btn-primary modal-save">Shrani spremembe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESERVATION MODAL -->
+        <div class="modal " id="reservationsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content blur">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">REZERVACIJA</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="px-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fname">Datum rezervacije</label>
+                                        <input type="datetime-local" id="rm_date" name="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fname">User ID</label>
+                                        <select name="cars" id="rm_userId" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fname">Car Service ID</label>
+                                        <select name="servicesList" id="rm_carServiceId" class="form-control"
+                                            onchange="onChangeId()">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fname">Offered Service ID</label>
+                                        <select name="cars" id="rm_offeredServiceId" class="form-control">
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="rm_reservation_id">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div id="modalContainer2">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal"
+                            id="userDataModalClose">Zapri</button>
+                        <button type="button" class="btn btn-primary modal-save" onclick="createReservation()">Shrani
+                            rezervacijo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- RESERVATION MODAL -->
+    <!-- RESERVATION MODAL -->
+    <div class="modal " id="reservationsModalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content blur">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">REZERVACIJA</h3>
+                    <button type="button" onclick="emptyReservationsModal()" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="px-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fname">Rezervacija Datum</label>
+                                    <input type="datetime-local" id="rmU_date" name="date" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fname">User ID</label>
+                                    <select name="cars" id="rmU_userId" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fname">Car Service ID</label>
+                                    <select name="servicesList" id="rmU_carServiceId" class="form-control"
+                                        onchange="onChangeId2()">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fname">Offered Service ID</label>
+                                    <select name="cars" id="rmU_offeredServiceId" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="rmU_reservation_id">
+                    </div>
+                </div>
+                <div class="container">
+                    <div id="modalContainer2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" onclick="emptyReservationsModal()"
+                        data-bs-dismiss="modal" id="userDataModalClose">Zapri</button>
+                    <button type="button" class="btn btn-primary modal-save" onclick="updateReservation()">Shrani
+                        rezervacijo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal modal-fullscreen" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content  blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Izbriši uporabnika</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="deleteUserModalContainer">
+
+                    </div>
+
+                    <h1 class="mt-5 text-center">Uporabnik bo izbrisan.</h1>
+                    <h2> Ali želite nadaljevati?</h2>
+                    <input type="hidden" id="deleteUserModalId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Zapri</button>
+                    <button type="button" class="btn btn-danger modal-save" onclick="confirmDelete()">Nadaljuj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-fullscreen" id="deletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content  blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Izbriši objavo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="deletePostModalContainer">
+
+                    </div>
+                    <h1 class="mt-5 text-center">Vprašanje bo izbrisano!</h1>
+                    <h2> Ali zelite nadaljevati?</h2>
+                    <input type="hidden" id="deletePostModalId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Zapri</button>
+                    <button type="button" class="btn btn-danger modal-save"
+                        onclick="confirmPostDelete()">Nadaljuj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-fullscreen" id="deleteDealershipModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content  blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete dealership</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="deleteDealershipModalContainer">
+
+                    </div>
+
+                    <h1 class="mt-5 text-center">Avto delavnica bo izbrisana.</h1>
+                    <h2 class="mt-5 text-center"> Ali zelite nadaljevati?</h2>
+                    <input type="hidden" id="deleteDealershipModalId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Zapri</button>
+                    <button type="button" class="btn btn-danger modal-save"
+                        onclick="confirmDeleteDealership()">Nadaljuj</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- <div class="modal modal-fullscreen" id="deleteReservationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="false"> -->
+    <div id="deleteReservationModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="deleteReservationModalContainer">
+
+                    </div>
+
+                    <h1 class="mt-5 text-center">Rezervacija bo izbrisana.</h1>
+                    <h2> Ali zelite nadaljevati?</h2>
+
+                    <input type="hidden" id="deleteReservationModalId">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Zapri</button>
+                    <button type="button" class="btn btn-danger modal-save"
+                        onclick="confirmDeleteReservation()">Nadaljuj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- OVDE MILANE -->
+
+    <div class="modal " id="reservationsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Podatki uporabnika</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Zapri</button>
+                    <button type="button" class="btn btn-primary modal-save">shrani spremembe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="public/js/adminSearch.js"></script>
+    <script src="public/js/adminReservations.js"> </script>
+    <script src='public/js/grid.js'></script>
+    <script src='public/js/adminUsers.js'></script>
+    <script src='public/js/adminDelavnice.js'></script>
+    <script src="public/js/adminForum.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+    <div id="mainFrame">
+        <%- include('../components/header.ejs') %>
+
+            <div id="pageContent">
+                <div id="data-container">
+
+                </div>
+
+            </div>
+
+    </div>
+
+    <div class="modal " id="questionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content blur">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Objavi vprašanje</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="questionModalErr">
+
+                </div>
+                <div class="modal-body question-modal">
+                    <div class="form-group">
+                        <label for="">Naslov</label>
+                        <input type="text" class="form form-control" id="qm_title">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tekst vprašanja</label>
+                        <textarea id="qm_text" class="form form-control" name="questionText" rows="4"
+                            cols="50"></textarea>
+                        <!-- <input type="text" class="form form-control" id="qm_text"> -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal"
+                        id="questionCreateModalClose">Zapri</button>
+                    <button type="button" class="btn btn-primary modal-save" onclick="createQuestions()">Objavi
+                        vprašanje</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reservationBookingModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ustvari rezervacijo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="reservationModalContainer"></div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="reservation_date">Termin</label>
+                                    <input type="datetime-local" class="form-control" id="reservation_date">
+                                </div>
+                                <input type="hidden" id="modal_service_id">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
+                    <button type="button" class="btn btn-primary" onclick="createReservation()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="reservationBookingModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content blur">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ustvari rezervacijo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="reservationModalContainer"></div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="reservation_date">Termin</label>
+                                    <input type="datetime-local" class="form-control" id="reservation_date2">
+                                </div>
+                                <input type="hidden" id="serviceIdZasebaj">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
+                <button type="button" class="btn btn-primary" onclick="createReservation2()">Shrani spremembe</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="public/js/main.js"></script>
+    <script src="public/js/dealershipsDisplay.js" defer></script>
+    <script src="public/js/indexForum.js"></script>
+    <Script src="public/js/indexResponses.js"></Script>
+    <script src="public/js/indexDelavnice.js"></script>
+    <script src="public/js/clientSearch.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsDFmWDBjBZOYOY7LPxscKl6aACI4W8OQ&v=weekly"
+        defer></script>
+    <script src="public/js/map.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="public/js/indexMechanics.js"></script>
+    <script src="public/js/socketClient.js"></script>
+
+</body>
+
+</html>

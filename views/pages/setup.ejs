@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup</title>
+    <%- include("../components/head.ejs") %>
+</head>
+
+<body>
+    <%- include("../components/header.ejs") %>
+
+        <div id="app">
+            <div class="setup blur">
+                <div class="setup-container">
+                    <div class="setup-step active" id="step-1" data-setup-step="1">
+                        <span class="setup-text">Hello! We’re so glad to have you here! Would you mind telling us a bit
+                            about yourself?</span>
+                        <div class="setup-formdata">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="setup_firstname">First name</label><br>
+                                        <input class="w-100" type="text" id="setup_firstname" name="fname"
+                                            value="<%= user.firstname %>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="setup_lastname">Last name</label><br>
+                                        <input class="w-100" type="text" id="setup_lastname" name="lname"
+                                            value="<%= user.lastname%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="setup_phone">Phone number</label>
+                                    <input class="w-100" type="text" id="setup_phone" name="phone">
+                                    <span class="input-text">Your phone will be used as a primary means of contacting
+                                        from shops.
+                                </div>
+                            </div>
+                        </div>
+                        </span>
+                    </div>
+                    <div class="setup-step" id="step-2" data-setup-step="2">
+                        <span class="setup-text">Amazing! Hi FirstName LastName! Would you mind telling us your current
+                            state of residence?</span>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="setup_city">City</label>
+                                    <input class="form-control" type="text" id="setup_city" name="lname">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="setup_street">My address is</label>
+                                    <input class="form-control" type="text" id="setup_street" name="fname"
+                                        placeholder="Street">
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex h-100 align-items-end">
+                                <div class="form-group">
+                                    <label for="setup_street_number" class="fs-4">Street number</label>
+                                    <input class="form-control" type="text" id="setup_street_number" name="fname"
+                                        placeholder="Street number">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="setup_country">Country</label>
+                                    <input class="form-control" type="text" id="setup_country" name="phone">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="setup_zipcode">Zip code</label>
+                                    <input class="form-control" type="text" id="setup_zipcode" name="phone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup-step" id="step-3" data-setup-step="4">
+                        <div id="setup-modal-container"></div>
+                        <span class="setup-text">Alright, setup is complete. You can now start browsing for services,
+                            questions, and stores available. However, if you choose to purchase, reserve a service,
+                            you’ll have to add cars you own before creating a reservation.</span>
+                        <div class="setup-links">
+                            <a href="/" class="">Start browsing</a>
+                            <a href="/dashboard" class="">Add cars</a>
+                        </div>
+                    </div>
+                    <div class="setup-step" data-setup-step="final">
+                        <span class="setup-text">You’re all set! You can now start browsing for services, questions,
+                            and</span>
+                        <input type="hidden" id="setup_uid" value="<%= user.id %>">
+                    </div>
+                    <div class="setup-navigation">
+                        <div class="arrow" id="arrow-left" onclick="setupPrevStep()">
+                            <i class='fa-solid fa-arrow-left'></i>
+                        </div>
+                        <div class="nav-circles">
+                            <div class="circle active"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                        </div>
+                        <div class="arrow" id="arrow-right" onclick="setupNextStep()">
+                            <i class='fa-solid fa-arrow-right'></i>
+                        </div>
+                        <div class="arrow final" id="finish-setup" onclick="finishSetup()">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="public/js/setup.js"></script>
+</body>
+
+</html>

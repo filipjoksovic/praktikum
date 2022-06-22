@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+  <div id="formPage">
+    <div id="formContainer" class="blur">
+      <div class="breadcrumb">
+        <div class="breadcrumb-icon">
+          <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="breadcrumb-link">
+          <a href="/">Domov</a>
+        </div>
+      </div>
+      <div class="hero">
+        <h1 class='container-form-heading'>Carvio</h1>
+        <h3 class='container-form-subtitle'>App slogan</h3>
+      </div>
+      <div class="fc-form">
+        <% if (messages.length !=0) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Napaka!</strong>
+            <%= messages %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <%}%>
+        <form action="/login" method = "post" class="form">
+          <h1 class="form-heading">Login</h1>
+          <div class="form-group">
+            <label for="username">Email</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+          <p class='text-center mt-3'>Niste registrirani? Lahko se registrirate <a class = "bg-link" href="/register">tukaj</a>.</p>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <%- include ("../components/socials") %> 
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

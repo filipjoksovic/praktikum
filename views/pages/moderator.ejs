@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../components/header.ejs') %>
+        <div id="dashboardContainer">
+            <div class="user-profile">
+                <div id="modalContainer"></div>
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="fname">Ime</label>
+                                <input type="text" id="um_fname" name="fname" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="lname">Priimek</label>
+                                <input type="text" id="um_lname" name="lname" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="phone">Telefonska številka</label>
+                                <input type="text" id="um_phone" name="phone" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="email">Email</label>
+                                <input type="email" id="um_email" name="email" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="street">Ulica</label>
+                                <input type="text" id="um_street" name="street" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="street_number">Hišna številka</label>
+                                <input type="text" id="um_street_number" name="street_number"
+                                    class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="city">Mesto</label>
+                                <input type="text" id="um_city" name="city" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="zipcode" class="fs-6">Poštna številka</label>
+                                <input type="text" id="um_zip_code" name="zipcode" class="form-control small">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="fs-5" for="country">Država</label>
+                                <input type="text" id="um_country" name="country" class="form-control small">
+                            </div>
+                        </div>
+                        <input type="hidden" id="um_user_id">
+                    </div>
+                </div>
+                <div class="user-actions d-flex w-100 justify-content-around mt-2">
+                    <button class="btn danger" id = deleteUser>Izbriši</button>
+                    <button class="btn success" id = "updateUser">Shrani</button>
+                </div>
+            </div>
+
+            <div class="data-container" id="data-container"></div>
+
+            <div class="nav-pills">
+                <button id = "reservationsPill" class="nav-pill active" onclick = "getNewAdvice()">Nov nasvet</button>
+                <button id = "reviewsPill" class="nav-pill active" onclick = "getUnswQuestions()">Neodgovorjena vprašanja</button>
+                <button id = "nasvetiPill" class="nav-pill" onclick = "getNasveti()">Vsi nasveti</button>
+            </div>
+        </div>
+        </div>
+
+
+
+        <script src="public/js/main.js"></script>
+        <!-- <script src = "public/js/dashboard.js"></script> -->
+        <script src="public/js/moderator.js"></script>
+</body>
+
+</html>

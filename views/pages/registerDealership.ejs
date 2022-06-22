@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <%- include('../components/head.ejs') %>
+
+</head>
+
+<body>
+    <div id="formPage">
+
+
+        <div id="formContainer" class="blur">
+            <div class="breadcrumb">
+                <div class="breadcrumb-icon">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+                <div class="breadcrumb-link">
+                    <a href="/">Home</a>
+                </div>
+            </div>
+            <div class="hero">
+                <h1 class='container-form-heading'>App Title</h1>
+                <h3 class='container-form-subtitle'>App slogan</h3>
+            </div>
+            <div class="fc-form">
+                <% if (messages.length !=0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Napaka!</strong>
+                        <%= messages %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <%}%>
+                        <% if (messages.length !=0) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Napaka!</strong>
+                                <%= messages %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                            <%}%>
+
+                                <form action="/registerDealership" method="post" class="form">
+                                    <h1 class="form-heading">Registracija delavnice</h1>
+                                    <div class="form-group">
+                                        <label for="name" class = "fs-5">Naziv</label>
+                                        <input type="text" class="form-control small" id="name" name="name">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email" class="fs-5">Email</label>
+                                                <input type="email" class="form-control small" id="email" name="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="phone" class="fs-5">Telefonska številka</label>
+                                                <input type="phone" class="form-control small" id="phone" name="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="street" class="fs-5">Ulica</label>
+                                                <input type="street" class="form-control small" id="street" name="street">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="street_number" class="fs-5">Številka ulice</label>
+                                                <input type="street_number" class="form-control small" id="street_number"
+                                                    name="street_number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="city" class="fs-5">Grad</label>
+                                                <input type="city" class="form-control small" id="city" name="city">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="zipcode" class="fs-5">P. št.</label>
+                                                <input type="zipcode" class="form-control small" id="zipcode" name="zipcode">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="country" class="fs-5">Država</label>
+                                                <input type="country" class="form-control small" id="country" name="country">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 h-100 d-flex align-items-center">
+                                            <div class="form-check d-flex align-items-center">
+                                                <input class="form-check-input" type="checkbox" id="isLicenced"
+                                                    name="isLicenced">
+                                                <label class="form-check-label fs-5 mx-3" for="isLicenced">
+                                                    Licenciran.
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="maxCapacity" class="fs-5">Kapaciteta</label>
+                                                <input type="number" class="form-control small" id="maxCapacity" name="maxCapacity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class='text-center mt-3'>Že imate nalog? Lahko se prijavite <a
+                                                class="bg-link" href="/login">tukaj</a>.
+                                        </p>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

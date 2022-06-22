@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+    <div id="mainFrame">
+        <%- include('../components/header.ejs') %>
+
+            <div id="pageContent" class="active">
+                <div id="data-container">
+                    <div class="dealership-container">
+                        <button class="navigation">
+                            <div class="navigation-icon">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
+                            <span class="navigation-text">Nazaj</span>
+                        </button>
+                        <div class="dealership-information">
+                            <h1 class="dealership-name">Dname</h1>
+                            <h3 class="dealership-address">Daddress</h3>
+                            <h4 class="dealership-rating">Drating</h4>
+                        </div>
+                        <div id="actionSearch">
+                            <button class="search-icon" data-bs-toggle="modal" data-bs-target="#reviewsModal"
+                                onclick="emptyUserModal()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button class="search-icon filter">
+                                <i class="fa-solid fa-filter" onclick="toggleFilter(this,'user')"></i>
+                                <div class="filter-container">
+                                    <div class="content roles">
+
+                                    </div>
+                                </div>
+                            </button>
+                            <div class="search-icon" onclick="searchUsers()">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control dark" placeholder="Search" id="searchUsers">
+                            </div>
+                        </div>
+                        <div class="component-selector">
+                            <div class="select-item" onclick="toggleComponent(this)" onclick=""
+                                data-component="dealership-services">
+                                <i class="fas fa-bell-concierge"></i>
+                            </div>
+                            <div class="select-item" onclick="toggleComponent(this)"
+                                data-component="dealership-reviews">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="select-item" onclick="toggleComponent(this)" data-component="dealership-map">
+                                <i class="fas fa-map"></i>
+                            </div>
+                        </div>
+                        <div class="dealership-data">
+                            <div class="component dealership-services active">
+                                <% for( let index=0; index < 10; index++ ) { %>
+
+                                    <div class="service-details" data-service-id=${service.id}>
+                                        <span class="service-description">
+                                            <span class="service-name">
+                                                Sname
+                                            </span>
+                                            <span class="service-category w-75">
+                                                Sdesc
+                                            </span>
+                                        </span>
+                                        <div class="service-click">
+                                            <a href="" class="btn ">€ 100</a>
+                                            <a href="" class="btn danger">Book</a>
+                                        </div>
+                                    </div>
+                                    <% } %>
+
+                            </div>
+                            <div class="component dealership-reviews">
+                                <div class="service-review">
+                                    <div class="review-header">
+                                        <div class="userinfo-rewiew">
+                                            <span>Ime in priimek</span>
+                                        </div>
+                                        <div class="review-stars">
+                                            <i class="fa-solid fa-star mx-1"></i><i class="fa-solid fa-star mx-1"></i><i
+                                                class="fa-solid fa-star mx-1"></i><i
+                                                class="fa-solid fa-star mx-1"></i><i class="fa-solid fa-star mx-1"></i>
+                                        </div>
+                                    </div>
+                                    <div class="review-body">
+                                        <div class="review-text">
+                                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque,
+                                                quibusdam modi perspiciatis repudiandae quasi commodi! Cupiditate
+                                                architecto sapiente non. Quas porro nihil minus possimus numquam.
+                                                Voluptas ipsa quae nesciunt minus.</span>
+                                        </div>
+                                        <div class="review-date ">
+                                            <p class="m-0">21-5-2022</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="component dealership-map">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal " id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content blur">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">User reviews</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <label for="phone">Text</label>
+                                <input type="text" id="pc_text" name="phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary modal-close"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary modal-save">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- <script src="public/js/indexForum.js"></script> 
+     <Script src="public/js/indexResponses.js"></Script> 
+     <script src="public/js/indexDelavnice.js"></script> 
+     <script src="public/js/main.js"></script>  -->
+    <script src="public/js/dealershipsDisplay.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <%- include('../components/head.ejs') %>
+</head>
+
+<body>
+    <div id="mainFrame">
+        <%- include('../components/header.ejs') %>
+
+            <div id="pageContent" class="active">
+                <div id="data-container">
+                    <div class="service-container">
+                        <button class="navigation">
+                            <div class="navigation-icon">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
+                            <span class="navigation-text">Back</span>
+                        </button>
+                        <div class="service-information">
+                            <h1 class="service-name">Dname</h1>
+                            <h4 class="service-count">Drating</h4>
+                        </div>
+                        <div id="actionSearch">
+                            <button class="search-icon filter">
+                                <i class="fa-solid fa-filter" onclick="toggleFilter(this,'user')"></i>
+                                <div class="filter-container">
+                                    <div class="content roles">
+
+                                    </div>
+                                </div>
+                            </button>
+                            <div class="search-icon" onclick="searchUsers()">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control dark" placeholder="Search" id="searchUsers">
+                            </div>
+                        </div>
+                        <div class="service-data">
+                            <div class="component dealership-services active">
+                                <% for( let index=0; index < 10; index++ ) { %>
+                                    <div class="service-details flex-column" data-service-id=${service.id}>
+                                        <span class="dealership-data">
+                                            <span class="dealership-name text-center w-100 d-block">
+                                                Dname
+                                            </span>
+                                            <div class="dealership-rating w-50">
+                                                <% for( let index=0; index < 5; index++ ) { %>
+                                                    <i class="fas fa-star"></i>
+                                                    <% } %>
+                                            </div>
+                                        </span>
+                                        <div class="service-click justify-content-around">
+                                            <a href="" class="btn w-25">€ 100</a>
+                                            <a href="" class="btn danger w-25">Book</a>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- <script src="public/js/indexForum.js"></script> 
+     <Script src="public/js/indexResponses.js"></Script> 
+     <script src="public/js/indexDelavnice.js"></script> 
+     <script src="public/js/main.js"></script>  -->
+    <script src="public/js/dealershipsDisplay.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <%- include('../components/head.ejs') %>
+
+</head>
+
+<body>
+  <div id="formPage">
+
+
+    <div id="formContainer" class="blur">
+      <div class="breadcrumb">
+        <div class="breadcrumb-icon">
+          <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="breadcrumb-link">
+          <a href="/">Home</a>
+        </div>
+      </div>
+      <div class="hero">
+        <h1 class='container-form-heading'>Carvio</h1>
+        <h3 class='container-form-subtitle'>App slogan</h3>
+      </div>
+      <div class="fc-form">
+        <% if (messages.length !=0) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Napaka!</strong>
+            <%= messages %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <%}%>
+            <% if (messages.length !=0) { %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Napaka!</strong>
+                <%= messages %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <%}%>
+
+                <form action="/register" method="post" class="form">
+                  <h1 class="form-heading">Registracija</h1>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <div>
+                    <p class='text-center mt-3'>Že imate nalog? Lahko se prijavite <a class="bg-link"
+                        href="/login">tukaj</a>.
+                    </p>
+                    <p class='text-center'>Registrirate se kot delavnica? Kliknite <a class="bg-link"
+                        href="/registerDealership">tukaj</a>.
+                    </p>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
